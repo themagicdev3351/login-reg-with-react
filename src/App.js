@@ -1,11 +1,10 @@
-// App.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Home from './Home';
-import Login from './Login';
-import Profile from './Profile';
-import Register from './Register';
-import TodoList from './TodoList';
+import Home from './components/Home';
+import Login from './components/Login';
+import Profile from './components/Profile';
+import Register from './components/Register';
+import TodoList from './components/TodoList';
 
 const App = () => {
   const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || []);
@@ -26,6 +25,12 @@ const App = () => {
     setCurrentUser(null);
     navigate('/login')
   };
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/login')
+    }
+  }, [])
 
   return (
     <>

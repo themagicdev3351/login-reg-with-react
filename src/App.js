@@ -8,36 +8,56 @@ import TodoList from './components/TodoList';
 
 const App = () => {
   const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || []);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = (user) => {
-    setCurrentUser(user);
+    const updateUserById = users.map((item) =>
+      user.id === item.id ? { ...item, isLogin: true } : item
+    )
+
+    setUsers(updateUserById);
   };
 
   const handleRegister = (newUser) => {
-    const updatedUsers = [...users, { id: Date.now(), username: newUser.username, password: newUser.password }];
-    setUsers(updatedUsers); 
-    setCurrentUser(newUser);
+    const updatedUsers = [...users, { id: Date.now(), username: newUser.username, password: newUser.password, isLogin: true }];
+    setUsers(updatedUsers);
   };
 
   const handleLogout = () => {
-    setCurrentUser(null);
+    setCurrentUser(false)
+    const updateUserById = users.map((user) =>
+      user.isLogin ? { ...user, isLogin: false } : user
+    )
+
+    setUsers(updateUserById);
     navigate('/login')
   };
 
   const deleteUser = (id) => {
     setUsers(users.filter((u) => u.id !== id));
-    if (users.length > 0) {
+    if (users.length === 0) {
       navigate('/login')
       setCurrentUser(null)
     }
   };
 
+  const checkUserLogin = () => {
+    if (users.some((user) => user.isLogin === true)) {
+      setCurrentUser(true)
+      navigate('/profile')
+    } else {
+      navigate('/login')
+      setCurrentUser(false)
+    }
+  }
+
   useEffect(() => {
     localStorage.setItem('users', JSON.stringify(users));
+    checkUserLogin()
   }, [users]);
+
 
   // useEffect(() => {
   //   if (!currentUser) {

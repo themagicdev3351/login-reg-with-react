@@ -16,9 +16,10 @@ const App = () => {
     setCurrentUser(user);
   };
 
-  const handleRegister = (user) => {
-    setUsers((prevUsers) => [...prevUsers, user]);
-    setCurrentUser(user);
+  const handleRegister = (newUser) => {
+    const updatedUsers = [...users, { id: Date.now(), username: newUser.username, password: newUser.password }];
+    setUsers(updatedUsers); 
+    setCurrentUser(newUser);
   };
 
   const handleLogout = () => {
@@ -26,11 +27,23 @@ const App = () => {
     navigate('/login')
   };
 
-  useEffect(() => {
-    if (!currentUser) {
+  const deleteUser = (id) => {
+    setUsers(users.filter((u) => u.id !== id));
+    if (users.length > 0) {
       navigate('/login')
+      setCurrentUser(null)
     }
-  }, [])
+  };
+
+  useEffect(() => {
+    localStorage.setItem('users', JSON.stringify(users));
+  }, [users]);
+
+  // useEffect(() => {
+  //   if (!currentUser) {
+  //     navigate('/login')
+  //   }
+  // }, [])
 
   return (
     <>
@@ -38,7 +51,7 @@ const App = () => {
         <Routes>
           <Route
             path="/profile"
-            element={<Profile users={users} currentUser={currentUser} onLogout={handleLogout} />}
+            element={<Profile users={users} currentUser={currentUser} onLogout={handleLogout} onDelete={deleteUser} />}
           />
         </Routes>
         :

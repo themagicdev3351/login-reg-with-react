@@ -17,10 +17,6 @@ const Register = ({ onRegister, users }) => {
             return;
         }
 
-        // Save user info in localStorage
-        const updatedUsers = [...users, newUser];
-        localStorage.setItem('users', JSON.stringify(updatedUsers));
-
         // Trigger the onRegister callback
         onRegister(newUser);
         navigate('/profile');
@@ -32,6 +28,7 @@ const Register = ({ onRegister, users }) => {
             <input
                 type="text"
                 placeholder="Username"
+                autoFocus
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />

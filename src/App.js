@@ -12,6 +12,12 @@ const App = () => {
 
   const navigate = useNavigate();
 
+
+  const handleRegister = (newUser) => {
+    const updatedUsers = [...users, { id: Date.now(), username: newUser.username, password: newUser.password, isLogin: true }];
+    setUsers(updatedUsers);
+  };
+
   const handleLogin = (user) => {
     const updateUserById = users.map((item) =>
       user.id === item.id ? { ...item, isLogin: true } : item
@@ -20,17 +26,11 @@ const App = () => {
     setUsers(updateUserById);
   };
 
-  const handleRegister = (newUser) => {
-    const updatedUsers = [...users, { id: Date.now(), username: newUser.username, password: newUser.password, isLogin: true }];
-    setUsers(updatedUsers);
-  };
-
   const handleLogout = () => {
     setCurrentUser(false)
     const updateUserById = users.map((user) =>
       user.isLogin ? { ...user, isLogin: false } : user
     )
-
     setUsers(updateUserById);
     navigate('/login')
   };
@@ -66,7 +66,7 @@ const App = () => {
   // }, [])
 
   return (
-    <>
+    <div className='container'>
       {currentUser ?
         <Routes>
           <Route
@@ -82,7 +82,7 @@ const App = () => {
           <Route path="/register" element={<Register onRegister={handleRegister} users={users} />} />
         </Routes>
       }
-    </>
+    </div>
   );
 };
 

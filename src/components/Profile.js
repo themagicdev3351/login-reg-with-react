@@ -1,7 +1,8 @@
 // Profile.js
 import React from 'react';
 
-const Profile = ({ users, currentUser, onLogout }) => {
+const Profile = ({ users, currentUser, onLogout, onDelete }) => {
+ 
     return (
         <div>
             <h2>Profile</h2>
@@ -9,7 +10,10 @@ const Profile = ({ users, currentUser, onLogout }) => {
             <h3>Other Users:</h3>
             <ul>
                 {users?.map((user) => (
-                    <li key={user?.username}>{user?.username}</li>
+                    <>
+                        <li key={user?.username}>{user?.username}</li>
+                        <button onClick={() => onDelete(user.id)}>Del</button>
+                    </>
                 ))}
             </ul>
             <button onClick={onLogout}>Logout</button>

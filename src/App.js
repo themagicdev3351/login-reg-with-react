@@ -53,10 +53,6 @@ const App = () => {
       setCurrentUser(true)
       navigate('/profile')
     }
-    // else {
-    //   navigate('/login')
-    //   setCurrentUser(false)
-    // }
   }
 
   useEffect(() => {
@@ -65,31 +61,8 @@ const App = () => {
   }, [users]);
 
 
-  // useEffect(() => {
-  //   if (!currentUser) {
-  //     navigate('/login')
-  //   }
-  // }, [])
-
-
   return (
     <div className='container py-5'>
-      {/* {currentUser ?
-        <Routes>
-          <Route
-            path="/profile"
-            element={<Profile users={users} currentUser={currentUser} onLogout={handleLogout} onDelete={deleteUser} />}
-          />
-        </Routes>
-        :
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} users={users} />} />
-          <Route path="/todo" element={<TodoList />} />
-          <Route path="/api" element={<DemoApi />} />
-          <Route path="/register" element={<Register onRegister={handleRegister} users={users} />} />
-        </Routes>
-      } */}
       <Routes>
         <Route element={<PrivateWrapper auth={currentUser ? true : false} />}>
           <Route path="/profile" element={<Profile users={users} currentUser={currentUser} onLogout={handleLogout} onDelete={deleteUser} />} />

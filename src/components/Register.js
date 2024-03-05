@@ -12,7 +12,7 @@ const Register = ({ onRegister, users }) => {
         const newUser = { username, password };
 
         // Check if the username is already taken
-        if (users.some((user) => user.username === newUser.username)) {
+        if (users.some((user) => user.username === newUser.username.trim())) {
             alert('Username is already taken');
             return;
         }
@@ -29,6 +29,7 @@ const Register = ({ onRegister, users }) => {
                 type="text"
                 placeholder="Username"
                 autoFocus
+                class="form-control"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
@@ -36,9 +37,10 @@ const Register = ({ onRegister, users }) => {
                 type="password"
                 placeholder="Password"
                 value={password}
+                class="form-control"
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={handleRegister}>Register</button>
+            <button class="btn btn-primary" onClick={handleRegister}>Register</button>
             <Link to="/login" >login</Link>
         </div>
     );

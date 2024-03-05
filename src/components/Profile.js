@@ -20,14 +20,15 @@ const Profile = ({ users, currentUser, onLogout, onDelete }) => {
         <div>
             <h2>Profile</h2>
             <p>Welcome, {currentUser?.username}!</p>
-            searching
+            <p>Total users : {users.length}</p>
+            searching {' '}
             <input
                 type="text"
                 placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <h3>Other Users:</h3>
+            <h4>Other Users:</h4>
             <ul>
                 {searchResults?.map((user) => (
                     <>

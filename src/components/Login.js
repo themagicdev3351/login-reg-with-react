@@ -21,20 +21,31 @@ const Login = ({ onLogin, users }) => {
   return (
     <div>
       <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        autoFocus
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Username</label>
+          <input
+            type="text"
+            placeholder="Username"
+            class="form-control"
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            class="form-control"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary" onClick={handleLogin}>Login</button>
+      </form>
       <Link to="/register" >register</Link>
     </div>
   );
